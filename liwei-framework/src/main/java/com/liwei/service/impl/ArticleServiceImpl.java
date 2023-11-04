@@ -7,6 +7,7 @@ import com.liwei.constants.SystemConstants;
 import com.liwei.domain.entity.Article;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Category;
+import com.liwei.domain.vo.ArticleDetailVo;
 import com.liwei.domain.vo.ArticleListVo;
 import com.liwei.domain.vo.HotArticleVo;
 import com.liwei.domain.vo.PageVo;
@@ -75,20 +76,36 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         page(page,lambdaQueryWrapper);
         //查询categoryName
         List<Article> articles = page.getRecords();
-        articles.stream()
+/*        articles.stream()
                 .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
         //articleId查询articleName进行设置
-/*        for (Article article : articles) {
+        for (Article article : articles) {
             Category category = categoryService.getById(article.getCategoryId());
             article.setCategoryName(category.getName());
-        }*/
+        }
         //封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
 
 
         PageVo pageVo = new PageVo(articleListVos,page.getTotal());
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult getArticleDetail(Long id) {
+        //根据id查询文章
+        Article article = getById(id);
+        //转化成VO
+        ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+        //根据分类id查询分类名
+        Long categoryId = articleDetailVo.getCategoryId();
+        Category category = categoryService.getById(categoryId);
+        if (category != null){
+            articleDetailVo.setCategoryName(category.getName());
+        }
+        //封装响应返回
+        return ResponseResult.okResult(articleDetailVo);
     }
 }
 

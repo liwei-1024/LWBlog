@@ -44,7 +44,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         //查询分类表
         List<Category> categories = listByIds(categoryIds);
 
-        categories.stream()
+        categories = categories.stream()
                 .filter(category -> SystemConstants.STATUS_NORMAL.equals(category.getStatus()))
                 .collect(Collectors.toList());
         //封装vo
