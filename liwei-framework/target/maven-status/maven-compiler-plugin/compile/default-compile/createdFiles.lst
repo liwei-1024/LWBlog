@@ -1,0 +1,4 @@
+com\liwei\domain\Article.class
+com\liwei\mapper\ArticleMapper.class
+com\liwei\service\ArticleService.class
+com\liwei\service\impl\ArticleServiceImpl.class
