@@ -1,2 +1,3 @@
 com\liwei\LiWeiBlogApplication.class
 com\liwei\controller\ArticleController.class
+com\liwei\controller\CategoryController.class

@@ -9,6 +9,7 @@ import com.liwei.domain.ResponseResult;
 import com.liwei.domain.vo.HotArticleVo;
 import com.liwei.service.ArticleService;
 import com.liwei.mapper.ArticleMapper;
+import com.liwei.utils.BeanCopyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -38,14 +39,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
 
         List<Article> articles = page.getRecords();
         //bean拷贝
-        List<HotArticleVo> articleVos = new ArrayList<>();
+/*        List<HotArticleVo> articleVos = new ArrayList<>();
         for (Article article : articles) {
             HotArticleVo vo = new HotArticleVo();
             BeanUtils.copyProperties(article,vo);
             articleVos.add(vo);
-        }
-
-        return ResponseResult.okResult(articleVos);
+        }*/
+        List<HotArticleVo> vs = BeanCopyUtils.copyBeanList(articles,HotArticleVo.class);
+        return ResponseResult.okResult(vs);
     }
 }
 

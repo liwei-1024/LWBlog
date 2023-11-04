@@ -1,7 +1,11 @@
 com\liwei\service\ArticleService.class
+com\liwei\domain\vo\CategoryVo.class
+com\liwei\config\WebConfig.class
+com\liwei\domain\entity\Category.class
+com\liwei\mapper\CategoryMapper.class
+com\liwei\service\impl\CategoryServiceImpl.class
 com\liwei\service\impl\ArticleServiceImpl.class
-com\liwei\domain\Article.class
 com\liwei\domain\ResponseResult.class
 com\liwei\enums\AppHttpCodeEnum.class
 com\liwei\mapper\ArticleMapper.class
-com\liwei\config\WebConfig.class
+com\liwei\service\CategoryService.class
