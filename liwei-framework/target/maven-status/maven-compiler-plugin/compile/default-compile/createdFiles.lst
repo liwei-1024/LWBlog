@@ -1,4 +1,7 @@
-com\liwei\domain\Article.class
-com\liwei\mapper\ArticleMapper.class
 com\liwei\service\ArticleService.class
 com\liwei\service\impl\ArticleServiceImpl.class
+com\liwei\domain\Article.class
+com\liwei\domain\ResponseResult.class
+com\liwei\enums\AppHttpCodeEnum.class
+com\liwei\mapper\ArticleMapper.class
+com\liwei\config\WebConfig.class

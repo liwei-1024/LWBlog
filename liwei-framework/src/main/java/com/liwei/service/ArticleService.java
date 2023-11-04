@@ -1,7 +1,8 @@
 package com.liwei.service;
 
-import com.liwei.domain.Article;
+import com.liwei.domain.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liwei.domain.ResponseResult;
 
 /**
 * @author 李 炜
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ArticleService extends IService<Article> {
 
+    ResponseResult hotArticleList();
 }

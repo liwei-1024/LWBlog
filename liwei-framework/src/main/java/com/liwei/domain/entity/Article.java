@@ -1,4 +1,4 @@
-package com.liwei.domain;
+package com.liwei.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
