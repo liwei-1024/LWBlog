@@ -29,6 +29,10 @@ public class BlogLoginController{
             throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
         }
         return blogLoginService.login(user);
+    }
 
+    @PostMapping("/logout")
+    public ResponseResult logout(){
+        return blogLoginService.logout();
     }
 }
