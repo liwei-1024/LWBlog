@@ -7,10 +7,12 @@ com\liwei\domain\vo\UserInfoVo.class
 com\liwei\mapper\CategoryMapper.class
 com\liwei\service\LinkService.class
 com\liwei\service\impl\CategoryServiceImpl.class
+com\liwei\handler\security\AccessDeniedHandlerImpl.class
 com\liwei\service\impl\BlogLoginServiceImpl.class
 com\liwei\service\impl\ArticleServiceImpl.class
 com\liwei\domain\entity\Link.class
 com\liwei\utils\WebUtils.class
+com\liwei\handler\security\AuthenticationEntryPointImpl.class
 com\liwei\config\FastJsonRedisSerializer.class
 com\liwei\mapper\UserMapper.class
 com\liwei\enums\AppHttpCodeEnum.class
@@ -18,12 +20,13 @@ com\liwei\domain\entity\LoginUser.class
 com\liwei\domain\vo\BlogUserLoginVo.class
 com\liwei\service\CategoryService.class
 com\liwei\service\ArticleService.class
+com\liwei\exception\SystemException.class
 com\liwei\service\BlogLoginService.class
 com\liwei\domain\vo\CategoryVo.class
 com\liwei\config\WebConfig.class
 com\liwei\domain\entity\Category.class
+com\liwei\handler\exception\GlobalExceptionHandler.class
 com\liwei\utils\RedisCache.class
-com\liwei\service\impl\UserDetailsServiceImpl.class
 com\liwei\domain\ResponseResult.class
 com\liwei\mapper\ArticleMapper.class
 com\liwei\service\impl\LinkServiceImpl.class
