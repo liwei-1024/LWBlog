@@ -1,3 +1,6 @@
-com\liwei\LiWeiBlogApplication.class
+com\liwei\controller\BlogLoginController.class
 com\liwei\controller\ArticleController.class
 com\liwei\controller\CategoryController.class
+com\liwei\config\SecurityConfig.class
+com\liwei\controller\LinkController.class
+com\liwei\LiWeiBlogApplication.class
