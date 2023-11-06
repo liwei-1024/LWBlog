@@ -7,12 +7,16 @@ import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Comment;
 import com.liwei.domain.vo.CommentVo;
 import com.liwei.domain.vo.PageVo;
+import com.liwei.enums.AppHttpCodeEnum;
+import com.liwei.exception.SystemException;
 import com.liwei.service.CommentService;
 import com.liwei.mapper.CommentMapper;
 import com.liwei.service.UserService;
 import com.liwei.utils.BeanCopyUtils;
+import com.liwei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -51,6 +55,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         }
 
         return ResponseResult.okResult(new PageVo(commentVoList,page.getTotal()));
+    }
+
+    @Override
+    public ResponseResult addComment(Comment comment) {
+        //评论内容不能为空
+        if (!StringUtils.hasText(comment.getContent())){
+            throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
+        }
+        save(comment);
+        return ResponseResult.okResult();
     }
 
     /**
