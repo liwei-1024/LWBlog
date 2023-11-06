@@ -1,12 +1,11 @@
 package com.liwei.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -64,5 +63,5 @@ public class CommentVo{
 
     private String username;
 
-
+    private List<CommentVo> children;
 }
