@@ -1,5 +1,6 @@
 package com.liwei.service;
 
+import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+    ResponseResult userInfo();
 }
