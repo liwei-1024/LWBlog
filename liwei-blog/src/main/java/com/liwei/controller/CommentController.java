@@ -1,5 +1,6 @@
 package com.liwei.controller;
 
+import com.liwei.constants.SystemConstants;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Comment;
 import com.liwei.service.CommentService;
@@ -20,11 +21,16 @@ public class CommentController{
 
     @GetMapping("/commentList")
     public ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize){
-        return commentService.commentList(articleId,pageNum,pageSize);
+        return commentService.commentList(SystemConstants.ARTICLE_COMMENT,articleId,pageNum,pageSize);
     }
 
     @PostMapping
     public ResponseResult addComment(@RequestBody Comment comment){
         return commentService.addComment(comment);
+    }
+
+    @GetMapping("/linkCommentList")
+    public ResponseResult linkCommentList(Integer pageNum, Integer pageSize){
+        return commentService.commentList(SystemConstants.LINK_COMMENT,null,pageNum,pageSize);
     }
 }

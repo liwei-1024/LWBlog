@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    AccessDeniedHandler accessDeniedHandler;
 
     @Override
     @Bean
