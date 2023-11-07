@@ -1,3 +1,9 @@
 D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\ArticleController.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\filter\JwtAuthenticationTokenFilter.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\BlogLoginController.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\config\SecurityConfig.java
 D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\LiWeiBlogApplication.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\LinkController.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\CommentController.java
 D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\CategoryController.java
+D:\workspace\LWBlog\liwei-blog\src\main\java\com\liwei\controller\UserController.java
