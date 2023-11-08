@@ -1,6 +1,8 @@
 com\liwei\utils\JwtUtil.class
 com\liwei\config\RedisConfig.class
 com\liwei\domain\vo\LinkVo.class
+com\liwei\service\UploadService.class
+com\liwei\service\impl\OssUploadService.class
 com\liwei\config\FastJsonRedisSerializer.class
 com\liwei\mapper\UserMapper.class
 com\liwei\enums\AppHttpCodeEnum.class
@@ -27,6 +29,7 @@ com\liwei\service\CategoryService.class
 com\liwei\service\ArticleService.class
 com\liwei\exception\SystemException.class
 com\liwei\service\BlogLoginService.class
+com\liwei\utils\PathUtils.class
 com\liwei\domain\vo\CategoryVo.class
 com\liwei\config\WebConfig.class
 com\liwei\utils\RedisCache.class
