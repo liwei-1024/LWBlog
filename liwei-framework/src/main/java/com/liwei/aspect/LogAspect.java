@@ -3,7 +3,6 @@ package com.liwei.aspect;
 import com.alibaba.fastjson.JSON;
 import com.liwei.annotaion.SystemLog;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -37,7 +36,7 @@ public class LogAspect{
         try {
             handleBefore(joinPoint);
             ret = joinPoint.proceed();
-            handleAfter();
+            handleAfter(ret);
         } finally {
             // 结束后换行
             log.info("=======End=======" + System.lineSeparator());
@@ -46,8 +45,9 @@ public class LogAspect{
         return ret;
     }
 
-    private void handleAfter() {
-
+    private void handleAfter(Object ret) {
+        // 打印出参
+        log.info("Response       : {}", JSON.toJSONString(ret));
     }
 
     private void handleBefore(ProceedingJoinPoint joinPoint) {
