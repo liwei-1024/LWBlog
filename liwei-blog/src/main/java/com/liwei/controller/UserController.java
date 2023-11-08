@@ -1,5 +1,6 @@
 package com.liwei.controller;
 
+import com.liwei.annotaion.SystemLog;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.User;
 import com.liwei.service.UserService;
@@ -24,6 +25,7 @@ public class UserController{
     }
 
     @PutMapping("/userInfo")
+    @SystemLog(businessName = "更新用户信息")
     public ResponseResult updateUserInfo(@RequestBody User user){
         return userService.updateUserInfo(user);
     }
