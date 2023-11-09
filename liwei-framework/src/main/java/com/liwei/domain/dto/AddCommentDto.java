@@ -1,39 +1,41 @@
-package com.liwei.domain.entity;
+package com.liwei.domain.dto;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
-import java.util.Date;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 评论表
- * @TableName lw_comment
- */
-@TableName(value ="lw_comment")
+import java.util.Date;
+
+/*
+* @Auther:又菜又爱玩的炜
+* @Description:
+* @Date:2023/11/9
+*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "添加评论实体类")
-public class Comment implements Serializable {
-    /**
-     * 
-     */
+@ApiModel(description = "添加评论dto")
+public class AddCommentDto{
+
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
      * 评论类型（0代表文章评论，1代表友链评论）
      */
+    @ApiModelProperty(notes = "评论类型（0代表文章评论，1代表友链评论")
     private String type;
 
     /**
      * 文章id
      */
+    @ApiModelProperty(notes = "文章id")
     private Long articleId;
 
     /**
@@ -57,27 +59,23 @@ public class Comment implements Serializable {
     private Long toCommentId;
 
     /**
-     * 
+     *
      */
-    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     /**
-     * 
+     *
      */
-    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
-     * 
+     *
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
     /**
-     * 
+     *
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     /**
