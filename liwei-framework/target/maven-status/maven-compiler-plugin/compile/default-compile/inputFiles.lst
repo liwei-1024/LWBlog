@@ -4,6 +4,7 @@ D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\handler\security\Aut
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\mapper\CommentMapper.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\mapper\UserMapper.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\domain\vo\HotArticleVo.java
+D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\aspect\LogAspect.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\impl\ArticleServiceImpl.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\utils\SecurityUtils.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\domain\entity\User.java
@@ -24,6 +25,7 @@ D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\domain\vo\BlogUserLo
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\impl\BlogLoginServiceImpl.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\handler\security\AccessDeniedHandlerImpl.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\exception\SystemException.java
+D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\impl\OssUploadService.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\config\MybatisPlusConfig.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\impl\UserDetailServiceImpl.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\utils\JwtUtil.java
@@ -33,8 +35,11 @@ D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\mapper\ArticleMapper
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\utils\WebUtils.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\CategoryService.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\constants\SystemConstants.java
+D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\annotaion\SystemLog.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\domain\vo\LinkVo.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\enums\AppHttpCodeEnum.java
+D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\UploadService.java
+D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\utils\PathUtils.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\domain\vo\CategoryVo.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\impl\UserServiceImpl.java
 D:\workspace\LWBlog\liwei-framework\src\main\java\com\liwei\service\CommentService.java
