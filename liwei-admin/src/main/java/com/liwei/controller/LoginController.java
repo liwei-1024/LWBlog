@@ -2,8 +2,10 @@ package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.LoginUser;
+import com.liwei.domain.entity.Menu;
 import com.liwei.domain.entity.User;
 import com.liwei.domain.vo.AdminUserInfoVo;
+import com.liwei.domain.vo.RoutersVo;
 import com.liwei.domain.vo.UserInfoVo;
 import com.liwei.enums.AppHttpCodeEnum;
 import com.liwei.exception.SystemException;
@@ -62,5 +64,14 @@ public class LoginController{
         //封装数据返回
         AdminUserInfoVo adminUserInfoVo = new AdminUserInfoVo(perms,roleKeyList,userInfoVo);
         return ResponseResult.okResult(adminUserInfoVo);
+    }
+
+    @GetMapping("getRouters")
+    public ResponseResult<RoutersVo> getRouters(){
+        Long userId = SecurityUtils.getUserId();
+        //查询menu 结果是tree的形式
+        List<Menu> menus = menuService.selectRouterMenuTreeByUserId(userId);
+        //封装数据返回
+        return ResponseResult.okResult(new RoutersVo(menus));
     }
 }

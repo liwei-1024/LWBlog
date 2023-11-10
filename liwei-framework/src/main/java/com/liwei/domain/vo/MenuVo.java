@@ -1,28 +1,24 @@
-package com.liwei.domain.entity;
+package com.liwei.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-/**
- * 菜单权限表
- * @TableName sys_menu
- */
-@TableName(value ="sys_menu")
+import java.util.Date;
+import java.util.List;
+
+/*
+* @Auther:又菜又爱玩的炜
+* @Description:
+* @Date:2023/11/10
+*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-public class Menu implements Serializable {
+public class MenuVo{
     /**
      * 菜单ID
      */
@@ -74,45 +70,19 @@ public class Menu implements Serializable {
      */
     private String status;
 
-    /**
-     * 权限标识
-     */
-    private String perms;
 
     /**
      * 菜单图标
      */
     private String icon;
 
-    /**
-     * 创建者
-     */
-    private Long createBy;
+
 
     /**
      * 创建时间
      */
     private Date createTime;
 
-    /**
-     * 更新者
-     */
-    private Long updateBy;
 
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
-    /**
-     * 
-     */
-    private String delFlag;
-
-    private List<Menu> children;
+    private List<MenuVo> children;
 }
