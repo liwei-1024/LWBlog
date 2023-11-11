@@ -13,6 +13,7 @@ import com.liwei.service.LoginService;
 import com.liwei.service.MenuService;
 import com.liwei.service.RoleService;
 import com.liwei.utils.BeanCopyUtils;
+import com.liwei.utils.RedisCache;
 import com.liwei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -40,6 +41,7 @@ public class LoginController{
     @Autowired
     private RoleService roleService;
 
+
     @PostMapping("/user/login")
     public ResponseResult login(@RequestBody User user){
         if(!StringUtils.hasText(user.getUserName())){
@@ -47,6 +49,11 @@ public class LoginController{
             throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
         }
         return loginService.login(user);
+    }
+
+    @PostMapping("/user/logout")
+    public ResponseResult logout(){
+        return loginService.logout();
     }
 
     @GetMapping("getInfo")

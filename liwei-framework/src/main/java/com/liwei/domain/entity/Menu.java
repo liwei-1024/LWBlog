@@ -114,5 +114,6 @@ public class Menu implements Serializable {
      */
     private String delFlag;
 
+    @TableField(exist = false)
     private List<Menu> children;
 }
