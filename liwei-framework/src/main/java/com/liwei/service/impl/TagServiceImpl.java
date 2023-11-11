@@ -48,6 +48,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag>
         return ResponseResult.okResult();
     }
 
+    @Override
+    public ResponseResult deleteTagById(Long id) {
+        removeById(id);
+        return ResponseResult.okResult();
+    }
+
 }
 
 
