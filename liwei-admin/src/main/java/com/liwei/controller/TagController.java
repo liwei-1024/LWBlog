@@ -1,11 +1,11 @@
 package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
+import com.liwei.domain.dto.AddTagDto;
+import com.liwei.domain.dto.TagListDto;
 import com.liwei.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -20,7 +20,12 @@ public class TagController{
     private TagService tagService;
 
     @GetMapping("/list")
-    public ResponseResult list(){
-        return ResponseResult.okResult(tagService.list());
+    public ResponseResult list(Integer pageNum, Integer pageSize, TagListDto tagListDto){
+        return tagService.pageTagList(pageNum,pageSize,tagListDto);
+    }
+
+    @PostMapping
+    public ResponseResult addTag(@RequestBody AddTagDto addTagDto){
+        return tagService.addTag(addTagDto);
     }
 }
