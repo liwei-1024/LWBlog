@@ -1,6 +1,7 @@
 package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
+import com.liwei.domain.entity.Category;
 import com.liwei.domain.vo.CategoryVo;
 import com.liwei.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,8 @@ public class CategoryController{
         return ResponseResult.okResult(list);
     }
 
+    @GetMapping("/list")
+    public ResponseResult list(Category category,Integer pageNum, Integer pageSize){
+        return categoryService.selectCategoryPage(category,pageNum,pageSize);
+    }
 }

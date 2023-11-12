@@ -1,6 +1,15 @@
-com\liwei\controller\BlogLoginController.class
 com\liwei\controller\ArticleController.class
 com\liwei\controller\CategoryController.class
+com\liwei\runner\ViewCountRunner.class
+com\liwei\job\UpdateViewCountJob.class
+com\liwei\controller\UserController.class
+com\liwei\controller\BlogLoginController.class
+com\liwei\job\TestJob.class
+com\liwei\controller\CommentController.class
+com\liwei\filter\JwtAuthenticationTokenFilter.class
+com\liwei\runner\TestRunner.class
 com\liwei\config\SecurityConfig.class
+com\liwei\controller\UploadController.class
+com\liwei\config\SwaggerConfig.class
 com\liwei\controller\LinkController.class
 com\liwei\LiWeiBlogApplication.class

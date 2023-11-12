@@ -1,22 +1,25 @@
 package com.liwei.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liwei.constants.SystemConstants;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Article;
 import com.liwei.domain.entity.Category;
 import com.liwei.domain.vo.CategoryVo;
+import com.liwei.domain.vo.PageVo;
 import com.liwei.service.ArticleService;
 import com.liwei.service.CategoryService;
 import com.liwei.mapper.CategoryMapper;
 import com.liwei.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -61,6 +64,25 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         List<Category> list = list(wrapper);
         List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(list, CategoryVo.class);
         return categoryVos;
+    }
+
+    @Override
+    public ResponseResult selectCategoryPage(Category category, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(StringUtils.hasText(category.getName()),Category::getName,category.getName());
+        queryWrapper.eq(Objects.nonNull(category.getStatus()),Category::getStatus,category.getStatus());
+
+        Page<Category> page = new Page<>();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+
+        //转换成vo
+        List<Category> categories = page.getRecords();
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(categories);
+        return ResponseResult.okResult(pageVo);
     }
 }
 

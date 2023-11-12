@@ -1,5 +1,6 @@
 package com.liwei.service;
 
+import com.liwei.domain.dto.AddArticleDto;
 import com.liwei.domain.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liwei.domain.ResponseResult;
@@ -18,4 +19,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult getArticleDetail(Long id);
 
     ResponseResult updateViewCount(Long id);
+
+    ResponseResult add(AddArticleDto article);
 }
