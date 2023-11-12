@@ -5,16 +5,22 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.dto.AddTagDto;
+import com.liwei.domain.dto.EditTagDto;
 import com.liwei.domain.dto.TagListDto;
 import com.liwei.domain.entity.Tag;
 import com.liwei.domain.vo.PageVo;
+import com.liwei.domain.vo.TagVo;
 import com.liwei.enums.AppHttpCodeEnum;
 import com.liwei.exception.SystemException;
 import com.liwei.service.TagService;
 import com.liwei.mapper.TagMapper;
 import com.liwei.utils.BeanCopyUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
 * @author 李 炜
@@ -24,6 +30,10 @@ import org.springframework.util.StringUtils;
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag>
     implements TagService{
+
+    //操作tag表
+    @Autowired
+    private TagMapper tagMapper;
 
     @Override
     public ResponseResult pageTagList(Integer pageNum, Integer pageSize, TagListDto tagListDto) {
@@ -52,6 +62,28 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag>
     public ResponseResult deleteTagById(Long id) {
         removeById(id);
         return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult getInfo(Long id) {
+        Tag tag = getById(id);
+        return ResponseResult.okResult(tag);
+    }
+
+    @Override
+    public ResponseResult edit(EditTagDto tagDto) {
+        Tag tag = BeanCopyUtils.copyBean(tagDto, Tag.class);
+        updateById(tag);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public List<TagVo> listAllTag() {
+        LambdaQueryWrapper<Tag> wrapper = new LambdaQueryWrapper<>();
+        wrapper.select(Tag::getId,Tag::getName);
+        List<Tag> list = list(wrapper);
+        List<TagVo> tagVos = BeanCopyUtils.copyBeanList(list, TagVo.class);
+        return tagVos;
     }
 
 }

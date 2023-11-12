@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 /*
 * @Auther:又菜又爱玩的炜
 * @Description:
-* @Date:2023/11/4
+* @Date:2023/11/12
 */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoryVo{
+@NoArgsConstructor
+public class TagVo{
     private Long id;
     private String name;
-    private String description;
+    private String remark;
 }

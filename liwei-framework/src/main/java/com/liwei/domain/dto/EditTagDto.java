@@ -1,4 +1,4 @@
-package com.liwei.domain.vo;
+package com.liwei.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 /*
 * @Auther:又菜又爱玩的炜
 * @Description:
-* @Date:2023/11/4
+* @Date:2023/11/11
 */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoryVo{
+@NoArgsConstructor
+public class EditTagDto{
     private Long id;
+    //备注
+    private String remark;
+    //标签名
     private String name;
-    private String description;
 }

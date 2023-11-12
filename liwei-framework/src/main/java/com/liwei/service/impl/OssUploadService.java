@@ -35,7 +35,7 @@ public class OssUploadService implements UploadService {
         //获取原始文件名
         String originalFilename = img.getOriginalFilename();
         //对原始文件名进行判断
-        if (!originalFilename.endsWith(".png")||!originalFilename.endsWith(".jpg")){
+        if (!originalFilename.endsWith(".png")){
             throw new SystemException(AppHttpCodeEnum.FILE_TYPE_ERROR);
         }
         //如果判断通过上传文件到OSS
@@ -57,10 +57,6 @@ public class OssUploadService implements UploadService {
         //...其他参数参考类注释
 
         UploadManager uploadManager = new UploadManager(cfg);
-        //...生成上传凭证，然后准备上传
-//        String accessKey = "DPLW2G2zJcXnHXKE7KZ0atXtVa8UD_4krskpNixS";
-//        String secretKey = "ulx2aRYgJpRtphJChh6jnSPdUaqQpA8iGc2PWnQA";
-//        String bucket = "liw-blog";
 
         //默认不指定key的情况下，以文件内容的hash值作为文件名
         String key = filePath;

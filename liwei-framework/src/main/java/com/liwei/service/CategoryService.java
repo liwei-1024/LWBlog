@@ -3,6 +3,9 @@ package com.liwei.service;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liwei.domain.vo.CategoryVo;
+
+import java.util.List;
 
 /**
 * @author 李 炜
@@ -11,5 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface CategoryService extends IService<Category> {
 
+    //查询文章分类接口
     ResponseResult getCategoryList();
+
+    //写博客-查询文章分类接口
+    List<CategoryVo> listAllCategory();
+
+
+
 }

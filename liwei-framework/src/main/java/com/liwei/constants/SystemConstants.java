@@ -19,7 +19,7 @@ public class SystemConstants{
     public static final int ARTICLE_STATUS_NORMAL= 0;
 
     /*
-    *
+    *分类表的分类状态是正常状态
     * */
     public static final String STATUS_NORMAL = "0";
     /*
@@ -35,7 +35,18 @@ public class SystemConstants{
      */
     public static final String LINK_COMMENT = "1";
 
+    /**
+     * 权限类型，菜单
+     */
     public static final String MENU = "C";
 
+    /**
+     * 权限类型，按钮
+     */
     public static final String BUTTON = "F";
+
+    /**
+     * 正常状态
+     */
+    public static final String NORMAL = "0";
 }
