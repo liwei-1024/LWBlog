@@ -29,6 +29,5 @@ public class ArticleTag implements Serializable {
      */
     private Long tagId;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 625337492348897098L;
 }

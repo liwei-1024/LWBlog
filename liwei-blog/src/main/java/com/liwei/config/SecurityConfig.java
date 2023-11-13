@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 * @Date:2023/11/5
 */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 // 注销接口需要认证才能访问
                 .antMatchers("/logout").authenticated()
-                .antMatchers("/user/userInfo").authenticated()
+//                .antMatchers("/user/userInfo").authenticated()
 //                .antMatchers("/upload").authenticated()
                 //jwt过滤器测试用，如果测试没有问题吧这里删除了
 //                .antMatchers("/link/getAllLink").authenticated()

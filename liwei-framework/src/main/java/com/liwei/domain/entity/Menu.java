@@ -22,6 +22,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@SuppressWarnings("serial")
 public class Menu implements Serializable {
     /**
      * 菜单ID

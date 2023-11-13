@@ -19,6 +19,7 @@ import com.liwei.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -139,6 +140,29 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         //添加 博客和标签关联
         articleTagService.saveBatch(articleTags);
         return ResponseResult.okResult();
+    }
+
+    //管理后台（文章管理）-分页查询文章
+    @Override
+    public ResponseResult selectArticlePage(Article article, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+
+        queryWrapper.like(StringUtils.hasText(article.getTitle()),Article::getTitle,article.getTitle());
+        queryWrapper.like(StringUtils.hasText(article.getSummary()),Article::getSummary,article.getSummary());
+
+        Page<Article> page = new Page<>();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+
+        //转换成VO
+        List<Article> articles = page.getRecords();
+
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(articles);
+
+        return ResponseResult.okResult(pageVo);
     }
 }
 
