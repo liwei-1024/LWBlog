@@ -41,4 +41,11 @@ public class ArticleController{
     public ResponseResult edit(@RequestBody ArticleDto articleDto){
         return articleService.edit(articleDto);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseResult delete(@PathVariable Long id){
+        //直接使用mybatisplus提供的removeById方法
+        articleService.removeById(id);
+        return ResponseResult.okResult();
+    }
 }
