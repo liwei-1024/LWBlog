@@ -2,6 +2,7 @@ package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.dto.AddArticleDto;
+import com.liwei.domain.dto.ArticleDto;
 import com.liwei.domain.entity.Article;
 import com.liwei.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,15 @@ public class ArticleController{
     @GetMapping("/list")
     public ResponseResult list(Article article,Integer pageNum, Integer pageSize){
         return articleService.selectArticlePage(article,pageNum,pageSize);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseResult getInfo(@PathVariable(value = "id")Long id){
+        return articleService.getInfo(id);
+    }
+
+    @PutMapping
+    public ResponseResult edit(@RequestBody ArticleDto articleDto){
+        return articleService.edit(articleDto);
     }
 }

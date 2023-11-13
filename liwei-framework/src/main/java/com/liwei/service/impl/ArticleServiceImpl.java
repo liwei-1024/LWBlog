@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liwei.constants.SystemConstants;
 import com.liwei.domain.dto.AddArticleDto;
+import com.liwei.domain.dto.ArticleDto;
 import com.liwei.domain.entity.Article;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.ArticleTag;
@@ -163,6 +164,38 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         pageVo.setRows(articles);
 
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult getInfo(Long id) {
+        Article article = getById(id);
+        //获取关联标签
+        LambdaQueryWrapper<ArticleTag> articleTagLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        articleTagLambdaQueryWrapper.eq(ArticleTag::getArticleId,article.getId());
+        List<ArticleTag> articleTags = articleTagService.list(articleTagLambdaQueryWrapper);
+        List<Long> tags = articleTags.stream()
+                .map(articleTag -> articleTag.getTagId())
+                .collect(Collectors.toList());
+
+        ArticleByIdVo articleVo = BeanCopyUtils.copyBean(article,ArticleByIdVo.class);
+        articleVo.setTags(tags);
+        return ResponseResult.okResult(articleVo);
+    }
+
+    @Override
+    public ResponseResult edit(ArticleDto articleDto) {
+        Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
+        //更新博客信息
+        updateById(article);
+        //删除原有的 标签和博客的关联
+        LambdaQueryWrapper<ArticleTag> articleTagLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        articleTagLambdaQueryWrapper.eq(ArticleTag::getArticleId,article.getId());
+        articleTagService.remove(articleTagLambdaQueryWrapper);
+        //添加新的博客和标签的关联信息
+        List<ArticleTag> articleTags = articleDto.getTags().stream()
+                .map(tagId -> new ArticleTag(articleDto.getId(), tagId))
+                .collect(Collectors.toList());
+        return ResponseResult.okResult(articleTagService.saveBatch(articleTags));
     }
 }
 
