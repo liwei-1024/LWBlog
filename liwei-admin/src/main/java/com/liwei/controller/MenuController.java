@@ -33,4 +33,18 @@ public class MenuController{
     public ResponseResult add(@RequestBody Menu menu){
         return ResponseResult.okResult(menuService.save(menu));
     }
+
+    @GetMapping("/{menuId}")
+    public ResponseResult getInfo(@PathVariable Long menuId){
+        return ResponseResult.okResult(menuService.getById(menuId));
+    }
+
+    @PutMapping
+    public ResponseResult edit(@RequestBody Menu menu){
+        if (menu.getId().equals(menu.getParentId())){
+            return ResponseResult.errorResult(500,"修改菜单'"+menu.getMenuName()+"'失败，上级菜单不能选择自己");
+        }
+        menuService.updateById(menu);
+        return ResponseResult.okResult();
+    }
 }
