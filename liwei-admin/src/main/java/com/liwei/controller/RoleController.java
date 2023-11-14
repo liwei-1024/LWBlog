@@ -1,12 +1,11 @@
 package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
+import com.liwei.domain.dto.ChangeRoleStatusDto;
 import com.liwei.domain.entity.Role;
 import com.liwei.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -23,5 +22,13 @@ public class RoleController{
     @GetMapping("/list")
     public ResponseResult list(Role role,Integer pageNum,Integer pageSize){
         return roleService.selectRolePage(role,pageNum,pageSize);
+    }
+
+    @PutMapping("/changeStatus")
+    public ResponseResult changeStatus(@RequestBody ChangeRoleStatusDto roleStatusDto){
+        Role role = new Role();
+        role.setId(roleStatusDto.getRoleId());
+        role.setStatus(roleStatusDto.getStatus());
+        return ResponseResult.okResult(roleService.updateById(role));
     }
 }
