@@ -24,4 +24,7 @@ public interface UserService extends IService<User> {
     boolean checkPhoneUnique(User user);
     boolean checkEmailUnique(User user);
     ResponseResult addUser(User user);
+
+    //修改用户-②更新用户信息
+    void updateUser(User user);
 }

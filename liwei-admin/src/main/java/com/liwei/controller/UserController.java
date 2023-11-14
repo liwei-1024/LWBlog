@@ -1,9 +1,12 @@
 package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
+import com.liwei.domain.entity.Role;
 import com.liwei.domain.entity.User;
+import com.liwei.domain.vo.UserInfoAndRoleIdsVo;
 import com.liwei.enums.AppHttpCodeEnum;
 import com.liwei.exception.SystemException;
+import com.liwei.service.RoleService;
 import com.liwei.service.UserService;
 import com.liwei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +58,23 @@ public class UserController{
         return ResponseResult.okResult();
     }
 
+    @Autowired
+    private RoleService roleService;
+
+    @GetMapping(value = { "/{userId}" })
+    public ResponseResult getUserInfoAndRoleIds(@PathVariable(value = "userId") Long userId) {
+        List<Role> roles = roleService.selectRoleAll();
+        User user = userService.getById(userId);
+        //当前用户所具有的角色id列表
+        List<Long> roleIds = roleService.selectRoleIdByUserId(userId);
+
+        UserInfoAndRoleIdsVo vo = new UserInfoAndRoleIdsVo(user,roles,roleIds);
+        return ResponseResult.okResult(vo);
+    }
+
+    @PutMapping
+    public ResponseResult edit(@RequestBody User user) {
+        userService.updateUser(user);
+        return ResponseResult.okResult();
+    }
 }

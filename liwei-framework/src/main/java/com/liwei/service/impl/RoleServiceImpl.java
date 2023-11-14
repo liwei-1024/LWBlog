@@ -87,6 +87,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
         return list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, SystemConstants.NORMAL));
     }
 
+    @Override
+    public List<Long> selectRoleIdByUserId(Long userId) {
+        return getBaseMapper().selectRoleIdByUserId(userId);
+    }
+
     private void insertRoleMenu(Role role) {
         List<RoleMenu> roleMenuList = Arrays.stream(role.getMenuIds())
                 .map(memuId -> new RoleMenu(role.getId(), memuId))
