@@ -1,8 +1,10 @@
 package com.liwei.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liwei.constants.SystemConstants;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Role;
 import com.liwei.domain.entity.RoleMenu;
@@ -78,6 +80,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
         updateById(role);
         roleMenuService.deleteRoleMenuByRoleId(role.getId());
         insertRoleMenu(role);
+    }
+
+    @Override
+    public List<Role> selectRoleAll() {
+        return list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, SystemConstants.NORMAL));
     }
 
     private void insertRoleMenu(Role role) {

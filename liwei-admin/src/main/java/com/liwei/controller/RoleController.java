@@ -7,6 +7,8 @@ import com.liwei.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /*
 * @Auther:又菜又爱玩的炜
 * @Description:角色列表访问接口
@@ -54,5 +56,12 @@ public class RoleController{
     public ResponseResult remove(@PathVariable(name = "id") Long id) {
         roleService.removeById(id);
         return ResponseResult.okResult();
+    }
+
+    @GetMapping("/listAllRole")
+    //①查询角色列表接口
+    public ResponseResult listAllRole(){
+        List<Role> roles = roleService.selectRoleAll();
+        return ResponseResult.okResult(roles);
     }
 }
