@@ -5,9 +5,7 @@ import com.liwei.domain.entity.Link;
 import com.liwei.domain.vo.PageVo;
 import com.liwei.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -24,5 +22,11 @@ public class LinkController{
     public ResponseResult list(Link link, Integer pageNum, Integer pageSize) {
         PageVo pageVo = linkService.selectLinkPage(link,pageNum,pageSize);
         return ResponseResult.okResult(pageVo);
+    }
+
+    @PostMapping
+    public ResponseResult add(@RequestBody Link link){
+        linkService.save(link);
+        return ResponseResult.okResult();
     }
 }
