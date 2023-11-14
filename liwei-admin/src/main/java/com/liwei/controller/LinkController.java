@@ -29,4 +29,25 @@ public class LinkController{
         linkService.save(link);
         return ResponseResult.okResult();
     }
+
+    @GetMapping(value = "/{id}")
+    //①根据id查询友链
+    public ResponseResult getInfo(@PathVariable(value = "id")Long id){
+        Link link = linkService.getById(id);
+        return ResponseResult.okResult(link);
+    }
+
+    @PutMapping("/changeLinkStatus")
+    //②修改友链状态
+    public ResponseResult changeLinkStatus(@RequestBody Link link){
+        linkService.updateById(link);
+        return ResponseResult.okResult();
+    }
+
+    @PutMapping
+    //③修改友链
+    public ResponseResult edit(@RequestBody Link link){
+        linkService.updateById(link);
+        return ResponseResult.okResult();
+    }
 }
