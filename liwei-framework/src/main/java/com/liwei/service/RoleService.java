@@ -1,5 +1,6 @@
 package com.liwei.service;
 
+import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,6 @@ import java.util.List;
 public interface RoleService extends IService<Role> {
 
     List<String> selectRoleKeyByUserId(Long id);
+
+    ResponseResult selectRolePage(Role role, Integer pageNum, Integer pageSize);
 }

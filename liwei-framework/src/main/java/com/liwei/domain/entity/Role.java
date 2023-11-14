@@ -1,12 +1,13 @@
 package com.liwei.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 角色信息表
@@ -14,6 +15,8 @@ import lombok.Data;
  */
 @TableName(value ="sys_role")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role implements Serializable {
     /**
      * 角色ID
@@ -49,21 +52,25 @@ public class Role implements Serializable {
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     /**
@@ -73,4 +80,7 @@ public class Role implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    //关联菜单id数组，不是表中的字段  用来接收参数使用
+    @TableField(exist = false)
+    private Long[] menuIds;
 }
