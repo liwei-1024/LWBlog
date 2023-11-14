@@ -5,9 +5,12 @@ import com.liwei.domain.entity.User;
 import com.liwei.enums.AppHttpCodeEnum;
 import com.liwei.exception.SystemException;
 import com.liwei.service.UserService;
+import com.liwei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -41,6 +44,15 @@ public class UserController{
             throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
         }
         return userService.addUser(user);
+    }
+
+    @DeleteMapping("/{userIds}")
+    public ResponseResult remove(@PathVariable List<Long> userIds) {
+        if(userIds.contains(SecurityUtils.getUserId())){
+            return ResponseResult.errorResult(500,"不能删除当前你正在使用的用户");
+        }
+        userService.removeByIds(userIds);
+        return ResponseResult.okResult();
     }
 
 }
