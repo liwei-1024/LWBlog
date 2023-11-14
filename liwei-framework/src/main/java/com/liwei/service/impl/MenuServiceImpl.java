@@ -79,6 +79,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         return count(queryWrapper) != 0;
     }
 
+    @Override
+    public List<Long> selectMenuListByRoleId(Long roleId) {
+        return getBaseMapper().selectMenuListByRoleId(roleId);
+    }
+
     private List<Menu> builderMenuTree(List<Menu> menus, long parentId) {
         List<Menu> menuTree = menus.stream()
                 .filter(menu -> menu.getParentId().equals(parentId))
