@@ -1,10 +1,13 @@
 package com.liwei.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.User;
+import com.liwei.domain.vo.PageVo;
 import com.liwei.domain.vo.UserInfoVo;
+import com.liwei.domain.vo.UserVo;
 import com.liwei.enums.AppHttpCodeEnum;
 import com.liwei.exception.SystemException;
 import com.liwei.mapper.UserMapper;
@@ -15,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 * @Auther:又菜又爱玩的炜
@@ -76,6 +82,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ResponseResult.okResult();
     }
 
+    @Override
+    public ResponseResult selectUserPage(User user, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper();
+
+        queryWrapper.like(StringUtils.hasText(user.getUserName()),User::getUserName,user.getUserName());
+        queryWrapper.eq(StringUtils.hasText(user.getStatus()),User::getStatus,user.getStatus());
+        queryWrapper.eq(StringUtils.hasText(user.getPhonenumber()),User::getPhonenumber,user.getPhonenumber());
+
+        Page<User> page = new Page<>();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+
+        //转换成VO
+        List<User> users = page.getRecords();
+        List<UserVo> userVoList = users.stream()
+                .map(u -> BeanCopyUtils.copyBean(u, UserVo.class))
+                .collect(Collectors.toList());
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(userVoList);
+        return ResponseResult.okResult(pageVo);
+    }
+
     private LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
     private boolean nickNameExist(String nickName) {
@@ -92,7 +122,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     private boolean userNameExist(String userName) {
-//        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUserName,userName);
         return count(queryWrapper) > 0;
     }
