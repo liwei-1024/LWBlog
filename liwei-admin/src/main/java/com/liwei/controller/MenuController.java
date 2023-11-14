@@ -2,9 +2,12 @@ package com.liwei.controller;
 
 import com.liwei.domain.ResponseResult;
 import com.liwei.domain.entity.Menu;
+import com.liwei.domain.vo.MenuTreeVo;
 import com.liwei.domain.vo.MenuVo;
+import com.liwei.domain.vo.RoleMenuTreeSelectVo;
 import com.liwei.service.MenuService;
 import com.liwei.utils.BeanCopyUtils;
+import com.liwei.utils.SystemConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,5 +58,22 @@ public class MenuController{
         }
         menuService.removeById(menuId);
         return ResponseResult.okResult();
+    }
+
+    @GetMapping("/treeselect")
+    public ResponseResult treeselect() {
+        //复用之前的selectMenuList方法。方法需要参数，参数可以用来进行条件查询，而这个方法不需要条件，所以直接new Menu()传入
+        List<Menu> menus = menuService.selectMenuList(new Menu());
+        List<MenuTreeVo> options =  SystemConverter.buildMenuSelectTree(menus);
+        return ResponseResult.okResult(options);
+    }
+
+    @GetMapping(value = "/roleMenuTreeselect/{roleId}")
+    public ResponseResult roleMenuTreeSelect(@PathVariable("roleId") Long roleId) {
+        List<Menu> menus = menuService.selectMenuList(new Menu());
+        List<Long> checkedKeys = menuService.selectMenuListByRoleId(roleId);
+        List<MenuTreeVo> menuTreeVos = SystemConverter.buildMenuSelectTree(menus);
+        RoleMenuTreeSelectVo vo = new RoleMenuTreeSelectVo(checkedKeys,menuTreeVos);
+        return ResponseResult.okResult(vo);
     }
 }
