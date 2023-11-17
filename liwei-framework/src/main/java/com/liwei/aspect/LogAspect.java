@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 * @Date:2023/11/8
 */
 @Component
-@Aspect
-@Slf4j
+@Aspect//告诉spring容器，LogAspect是切面类
+@Slf4j//用于在控制台打印日志信息
 public class LogAspect{
 
     @Pointcut("@annotation(com.liwei.annotaion.SystemLog)")

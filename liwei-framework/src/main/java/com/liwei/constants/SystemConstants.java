@@ -53,4 +53,7 @@ public class SystemConstants{
      * 判断为管理员用户
      */
     public static final String ADMIN = "1";
+    public static final long ARTICLE_STATUS_CURRENT = 1;
+    public static final long ARTICLE_STATUS_SIZE = 10;
+    public static final String ARTICLE_VIEWCOUNT = "article:viewCount";
 }

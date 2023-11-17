@@ -106,7 +106,8 @@ public class Article implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public Article(Long id, Long viewCount) {
+    //把redis的浏览量数据更新到mysql数据库
+    public Article(Long id, long viewCount) {
         this.id = id;
         this.viewCount = viewCount;
     }

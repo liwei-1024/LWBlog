@@ -27,5 +27,5 @@ public interface ArticleService extends IService<Article> {
 
     ResponseResult getInfo(Long id);
 
-    ResponseResult edit(ArticleDto articleDto);
+    void edit(ArticleDto articleDto);
 }

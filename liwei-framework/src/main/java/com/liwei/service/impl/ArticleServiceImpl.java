@@ -23,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +36,10 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     implements ArticleService{
+
+    @Autowired
+    //操作数据库。ArticleService是我们在huanf-framework工程写的接口
+    private ArticleService articleService;
 
     @Autowired
     private CategoryService categoryService;
@@ -47,6 +53,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
 
     @Override
     public ResponseResult hotArticleList() {
+
+//        //获取redis中的浏览量，注意得到的viewCountMap是HashMap双列集合
+//        Map<String, Integer> viewCountMap = redisCache.getCacheMap("article:viewCount");
+//        //让双列集合调用entrySet方法即可转为单列集合，然后才能调用stream方法
+//        List<Article> xarticles = viewCountMap.entrySet()
+//                .stream()
+//                .map(entry -> new Article(Long.valueOf(entry.getKey()), entry.getValue().longValue()))
+//                //把最终数据转为List集合
+//                .collect(Collectors.toList());
+//        //把获取到的浏览量更新到mysql数据库中。updateBatchById是mybatisplus提供的批量操作数据的接口
+//        articleService.updateBatchById(xarticles);
+
         //查询热门文章    封装成ResponseResult返回
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         //必须是正式文章
@@ -54,7 +72,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         //按照浏览量进行排序
         queryWrapper.orderByDesc(Article::getViewCount);
         //最多只查询十条
-        Page<Article> page = new Page<>(1,10);
+        Page<Article> page = new Page<>(SystemConstants.ARTICLE_STATUS_CURRENT,SystemConstants.ARTICLE_STATUS_SIZE);
         page(page,queryWrapper);
 
         List<Article> articles = page.getRecords();
@@ -74,24 +92,39 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         //查询条件
         LambdaQueryWrapper<Article> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         //如果categoryId 就要 查询时和传入的相同
-        lambdaQueryWrapper.eq(Objects.nonNull(categoryId)&&categoryId>0,Article::getCategoryId,categoryId);
+        lambdaQueryWrapper.eq(Objects.nonNull(categoryId) && categoryId > 0,Article::getCategoryId,categoryId);
         //状态是正式发布的
         lambdaQueryWrapper.eq(Article::getStatus,SystemConstants.ARTICLE_STATUS_NORMAL);
         //对isTop进行降序
         lambdaQueryWrapper.orderByDesc(Article::getIsTop);
         //分页查询
-        Page<Article> page = new Page<>(pageNum,pageSize);
+        Page<Article> page = new Page<>(SystemConstants.ARTICLE_STATUS_CURRENT,SystemConstants.ARTICLE_STATUS_SIZE);
         page(page,lambdaQueryWrapper);
-        //查询categoryName
+
         List<Article> articles = page.getRecords();
+        //查询categoryName
 /*        articles.stream()
                 .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
                 .collect(Collectors.toList());*/
         //articleId查询articleName进行设置
-        for (Article article : articles) {
-            Category category = categoryService.getById(article.getCategoryId());
-            article.setCategoryName(category.getName());
-        }
+//        for (Article article : articles) {
+//            Category category = categoryService.getById(article.getCategoryId());
+//            article.setCategoryName(category.getName());
+//        }
+        articles.stream()
+                .map(new Function<Article, Article>() {
+                    @Override
+                    public Article apply(Article article) {
+                        //'article.getCategoryId()'表示从article表获取category_id字段，然后作为查询category表的name字段
+                        Category category = categoryService.getById(article.getCategoryId());
+                        String name = category.getName();
+                        //把查询出来的category表的name字段值，也就是article，设置给Article实体类的categoryName成员变量
+                        article.setCategoryName(name);
+                        //把查询出来的category表的name字段值，也就是article，设置给Article实体类的categoryName成员变量
+                        return article;
+                    }
+                })
+                .collect(Collectors.toList());
         //封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
 
@@ -183,7 +216,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     }
 
     @Override
-    public ResponseResult edit(ArticleDto articleDto) {
+    public void edit(ArticleDto articleDto) {
         Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
         //更新博客信息
         updateById(article);
@@ -195,7 +228,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         List<ArticleTag> articleTags = articleDto.getTags().stream()
                 .map(tagId -> new ArticleTag(articleDto.getId(), tagId))
                 .collect(Collectors.toList());
-        return ResponseResult.okResult(articleTagService.saveBatch(articleTags));
+        articleTagService.saveBatch(articleTags);
     }
 }
 

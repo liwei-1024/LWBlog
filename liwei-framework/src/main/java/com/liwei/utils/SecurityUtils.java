@@ -1,6 +1,7 @@
 package com.liwei.utils;
 
 import com.liwei.domain.entity.LoginUser;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -22,6 +23,7 @@ public class SecurityUtils
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+    @NotNull
     public static Boolean isAdmin(){
         Long id = getLoginUser().getUser().getId();
         return id != null && id.equals(1L);

@@ -39,7 +39,8 @@ public class ArticleController{
 
     @PutMapping
     public ResponseResult edit(@RequestBody ArticleDto articleDto){
-        return articleService.edit(articleDto);
+        articleService.edit(articleDto);
+        return ResponseResult.okResult();
     }
 
     @DeleteMapping("/{id}")
