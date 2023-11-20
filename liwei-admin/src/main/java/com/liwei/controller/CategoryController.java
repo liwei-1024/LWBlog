@@ -3,6 +3,7 @@ package com.liwei.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import com.liwei.domain.ResponseResult;
+import com.liwei.domain.dto.CategoryDto;
 import com.liwei.domain.entity.Category;
 import com.liwei.domain.vo.CategoryVo;
 import com.liwei.domain.vo.ExcelCategoryVo;
@@ -12,9 +13,7 @@ import com.liwei.utils.BeanCopyUtils;
 import com.liwei.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -37,10 +36,38 @@ public class CategoryController{
         return ResponseResult.okResult(list);
     }
 
+    //分页查询文章的分类列表
     @GetMapping("/list")
     public ResponseResult list(Category category,Integer pageNum, Integer pageSize){
         return categoryService.selectCategoryPage(category,pageNum,pageSize);
     }
+
+    //增加文章的分类
+    @PostMapping
+    public ResponseResult add(@RequestBody CategoryDto categoryDto){
+        Category category = BeanCopyUtils.copyBean(categoryDto,Category.class);
+        categoryService.save(category);
+        return ResponseResult.okResult();
+    }
+
+    //删除分类
+    @DeleteMapping("/{id}")
+    public ResponseResult remove(@PathVariable(value = "id")Long id){
+        categoryService.removeById(id);
+        return ResponseResult.okResult();
+    }
+    //修改分类  1:先根据分类的id来查询分类 2：根据分类的id来修改分类
+    @GetMapping("/{id}")
+    public ResponseResult getInfo(@PathVariable(value = "id")Long id){
+        Category category = categoryService.getById(id);
+        return ResponseResult.okResult(category);
+    }
+    @PutMapping
+    public ResponseResult edit(@RequestBody Category category){
+        categoryService.updateById(category);
+        return ResponseResult.okResult();
+    }
+
 
     @PreAuthorize("@ps.hasPermission('content:category:export')")
     @GetMapping("/export")
@@ -61,5 +88,7 @@ public class CategoryController{
         }
     }
 
+//    @GetMapping("{id}")
+//    public ResponseResult
 
 }
